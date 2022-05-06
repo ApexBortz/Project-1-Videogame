@@ -26,3 +26,4 @@ Stretch Goals
 - increase the frequency and speed of the meteors as more are destroyed
 - upgrade the space fighter's movement speed and/or weapons the more objects are destroyed
 
+![Wireframe](wireframe.jpg)
