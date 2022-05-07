@@ -1,0 +1,15 @@
+canvas {
+    background-image: url(../imgs/space-pixels.jpg);
+    /* background-repeat: repeat; */ 
+    /* background-color: black; */
+    width: 100%;
+    height: 50;
+}
+
+#container {
+    max-width: 40em;
+    max-height: 60em;
+    background-color: darkmagenta;
+    margin: 0 auto;
+    padding: 1em;
+}
