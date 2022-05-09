@@ -71,13 +71,13 @@ function movementHandler(e) {
 
 function detectHit() {
     // Axis Aligned Bounding Box (AABB) collision detection algorithm
-    const meteorLeft = player.x + player.width >= meteor.x
-    // // console.log('left', ogreLeft)
-    const meteorRight = player.x <= meteor.x + meteor.width
-    // // console.log('right', ogreRight)
-    const meteorTop = player.y + player.height >= meteor.y
-    const meteorBottom = player.y <= meteor.y + meteor.height
-    // console.log(ogreBottom)
+    // const meteorLeft = player.x + player.width >= meteor.x
+    // // // console.log('left', meteorLeft)
+    // const meteorRight = player.x <= meteor.x + meteor.width
+    // // // console.log('right', meteorRight)
+    // const meteorTop = player.y + player.height >= meteor.y
+    // const meteorBottom = player.y <= meteor.y + meteor.height
+    // // console.log(meteorBottom)
     if (
         player.x + player.width >= meteor.x &&
         player.x <= meteor.x + meteor.width &&
