@@ -44,7 +44,9 @@ const player = new Spaceship(140, 280, 'white', 15, 25)
 
 const randX = Math.floor(Math.random() * canvas.width)
 
-const meteor = new Spaceship(randX, 1, 'orange', 30, 30)
+const meteor = new Spaceship(randX, 1, 'orange', 25, 25)
+
+const projectile = new Spaceship(player.x, player.y, 'red', 5, 5)
 
 const earth = new Earth()
 
@@ -55,13 +57,13 @@ function drawBox(x, y, w, h, color) {
 
 
 function movementHandler(e) {
-    const speed = 10
+    const speed = 15
     switch(e.key) {
 
-      case('a'):
+      case('ArrowLeft'):
         player.x = player.x - speed
         break
-      case('d'):
+      case('ArrowRight'):
         player.x = player.x + speed
         break
     }
@@ -69,12 +71,12 @@ function movementHandler(e) {
 
 function detectHit() {
     // Axis Aligned Bounding Box (AABB) collision detection algorithm
-    // const ogreLeft = hero.x + hero.width >= ogre.x
+    const meteorLeft = player.x + player.width >= meteor.x
     // // console.log('left', ogreLeft)
-    // const ogreRight = hero.x <= ogre.x + ogre.width
+    const meteorRight = player.x <= meteor.x + meteor.width
     // // console.log('right', ogreRight)
-    // const ogreTop = hero.y + hero.height >= ogre.y
-    // const ogreBottom = hero.y <= ogre.y + ogre.height
+    const meteorTop = player.y + player.height >= meteor.y
+    const meteorBottom = player.y <= meteor.y + meteor.height
     // console.log(ogreBottom)
     if (
         player.x + player.width >= meteor.x &&
@@ -93,10 +95,10 @@ function detectHit() {
 function gameLoop() {
     // clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    // do all the game logic
+    meteor.y += 6
     detectHit()
-    // render the game objects
-    if (meteor.alive) {
+    
+    if (player.alive) {
         meteor.render()
     }
     earth.render()
