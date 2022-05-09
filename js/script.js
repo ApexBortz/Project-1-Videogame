@@ -23,6 +23,29 @@ class Spaceship {
     }
 }
 
+class Projectile {
+    constructor({position, velocity, color, width, height}){
+        this.position = position
+        this.velocity = velocity
+        this.color = 'red'
+        this.width = 3
+        this.height = 5
+         
+    }
+
+    draw() {
+        canvas.beginPath()
+        // canvas.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
+        canvas.fillStyle = 'red'
+        canvas.fill()
+        canvas.closePath()
+    }
+    update() {
+        this.draw()
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
+    }
+}
 
 class Earth {
     constructor() {
@@ -42,13 +65,31 @@ class Earth {
 
 const player = new Spaceship(140, 280, 'white', 15, 25)
 
+const projectiles = [new Projectile({
+    position: {
+        x: 150,
+        y: 400
+    },
+    velocity: {
+        x: 0,
+        y: 0
+    }
+})]
+
+
 const randX = Math.floor(Math.random() * canvas.width)
 
 const meteor = new Spaceship(randX, 1, 'orange', 25, 25)
 
-const projectile = new Spaceship(player.x, player.y, 'red', 5, 5)
+// const projectile = new Spaceship(player.x, player.y, 'red', 5, 5)
 
 const earth = new Earth()
+
+function animate() {
+    projectiles.forEach((projectile) => {
+        projectile.update()
+    })
+}
 
 function drawBox(x, y, w, h, color) {
     ctx.fillStyle = color
