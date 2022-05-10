@@ -10,8 +10,8 @@ canvas.width = 700;
 class Player {
     constructor() {
         this.position = {
-            x: 300,
-            y: 400
+            x: canvas.width / 2,
+            y: canvas.height - 100
         }
 
         this.velocity = {
@@ -30,19 +30,73 @@ class Player {
       ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
     //   ctx.drawImage(this.image, this.position.x, this.position.y)
     }
+    update() {
+        this.draw()
+        this.position.x += this.velocity.x
+    }
 }
 
 const player = new Player()
 // player.draw()
+const keys = {
+    ArrowLeft: {
+        pressed: false
+    },
+    ArrowRight: {
+        pressed: false
+    },
+    space: {
+        pressed: false
+    }
+}
 
 function animate() {
     requestAnimationFrame(animate)
-    player.draw()
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    player.update()
+
+    if (keys.ArrowLeft.pressed && player.position.x >= 0) {
+        player.velocity.x = -7
+    } else if (keys.ArrowRight.pressed && player.position.x + player.width <= 700) {
+        player.velocity.x = 7
+    } else {
+        player.velocity.x = 0
+    }
 }
 
 animate()
 
+addEventListener('keydown', ({key}) => {
+    switch(key) {
+        case 'ArrowLeft':
+            // console.log('left')      
+            keys.ArrowLeft.pressed = true
+            break
+        case 'ArrowRight':
+            // console.log('right')
+            keys.ArrowRight.pressed = true
+            break
+        case ' ':
+            // console.log('space')
+            break 
+    }
+})
 
+addEventListener('keyup', ({key}) => {
+    switch(key) {
+        case 'ArrowLeft':
+            // console.log('left')      
+            keys.ArrowLeft.pressed = false
+            break
+        case 'ArrowRight':
+            // console.log('right')
+            keys.ArrowRight.pressed = false
+            break
+        case ' ':
+            // console.log('space')
+            break 
+    }
+})
 // class Spaceship {
 //     constructor(x, y, color, width, height) {
 //         this.x = x
