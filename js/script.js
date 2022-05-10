@@ -4,9 +4,10 @@ const ctx = canvas.getContext('2d')
 
 // const gameLoopInterval = setInterval(gameLoop, 100)
 
-canvas.height = 600;
-canvas.width = 700;
+canvas.height = 625;
+canvas.width = 600;
 
+// player class for ship
 class Player {
     constructor() {
         this.position = {
@@ -36,8 +37,42 @@ class Player {
     }
 }
 
+// projectile class for shooting
+class Projectile {
+        constructor({position, velocity, color, width, height}){
+            this.position = position
+            this.velocity = velocity
+            
+            this.radius = 4
+            // this.width = 5
+            // this.height = 10
+             
+        }
+    
+        draw() {
+            ctx.beginPath()
+            ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
+            ctx.fillStyle = 'red'
+            ctx.fill()
+            // ctx.fillRect(this.position.x, this.position.y, this.velocity.x, 
+            //     this.velocity.y, this.width, this.height)
+            ctx.closePath()
+        }
+        update() {
+            this.draw()
+            this.position.x += this.velocity.x
+            this.position.y += this.velocity.y
+        }
+}
+
+
 const player = new Player()
 // player.draw()
+
+// projectiles array fired projectiles
+const projectiles = []
+    
+// variable for keys for movement handler
 const keys = {
     ArrowLeft: {
         pressed: false
@@ -50,11 +85,15 @@ const keys = {
     }
 }
 
+// animate & update loop function for game functions
 function animate() {
     requestAnimationFrame(animate)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     player.update()
-
+    projectiles.forEach(Projectile => {
+        Projectile.update()
+    })
+    // movement handler & left and right border stop
     if (keys.ArrowLeft.pressed && player.position.x >= 0) {
         player.velocity.x = -7
     } else if (keys.ArrowRight.pressed && player.position.x + player.width <= 700) {
@@ -66,6 +105,7 @@ function animate() {
 
 animate()
 
+// keydown event listener to START player movement
 addEventListener('keydown', ({key}) => {
     switch(key) {
         case 'ArrowLeft':
@@ -78,10 +118,21 @@ addEventListener('keydown', ({key}) => {
             break
         case ' ':
             // console.log('space')
+            projectiles.push(new Projectile({
+                position: {
+                    x: player.position.x + 20,
+                    y: player.position.y
+                },
+                velocity: {
+                    x: 0,
+                    y: -8
+                }
+            }))
             break 
     }
 })
 
+// keyup event listener to STOP movement side to side
 addEventListener('keyup', ({key}) => {
     switch(key) {
         case 'ArrowLeft':
@@ -113,29 +164,6 @@ addEventListener('keyup', ({key}) => {
 //     }
 // }
 
-// class Projectile {
-//     constructor({position, velocity, color, width, height}){
-//         this.position = position
-//         this.velocity = velocity
-//         this.color = 'red'
-//         this.width = 3
-//         this.height = 5
-         
-//     }
-
-//     draw() {
-//         // ctx.beginPath()
-//         // canvas.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
-//         ctx.fillStyle = 'red'
-//         ctx.fillRect()
-//         // ctx.closePath()
-//     }
-//     update() {
-//         this.draw()
-//         this.position.x += this.velocity.x
-//         this.position.y += this.velocity.y
-//     }
-// }
 
 // class Earth {
 //     constructor() {
@@ -154,18 +182,6 @@ addEventListener('keyup', ({key}) => {
 // }
 
 // const player = new Spaceship(140, 280, 'white', 15, 25)
-
-// const projectiles = [new Projectile({
-//     position: {
-//         x: 150,
-//         y: 250
-//     },
-//     velocity: {
-//         x: 0,
-//         y: 0
-//     }
-// })]
-
 
 // const randX = Math.floor(Math.random() * canvas.width)
 

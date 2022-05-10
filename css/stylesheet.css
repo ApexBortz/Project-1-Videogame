@@ -3,7 +3,7 @@ canvas {
     /* background-repeat: repeat; */ 
     /* background-color: black; */
     width: 600px;
-    height: 700px;
+    height: 625px;
 }
 
 h2 {
@@ -13,7 +13,7 @@ h2 {
 
 #container {
     width: 600px;
-    height: 800px;
+    height: 700px;
     background-color: darkmagenta;
     margin: 0 auto;
     padding: 1em;
