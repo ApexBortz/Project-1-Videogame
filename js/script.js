@@ -23,8 +23,8 @@ class Player {
         // const image = new Image()
         // image.src = "../imgs/spaceship.png"
 
-        this.width = 40
-        this.height = 60
+        this.width = 30
+        this.height = 50
     }
     draw() {
       ctx.fillStyle = 'white'
@@ -65,11 +65,42 @@ class Projectile {
         }
 }
 
+class Meteor {
+    constructor() {
+        this.position = {
+            x: randX,
+            y: 0
+        }
+
+        this.velocity = {
+            x: 0,
+            y: 3
+        }
+
+        // const image = new Image()
+        // image.src = "../imgs/spaceship.png"
+
+        this.width = 55
+        this.height = 55
+    }
+    draw() {
+      ctx.fillStyle = 'orange'
+      ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+    //   ctx.drawImage(this.image, this.position.x, this.position.y)
+    } 
+    update() {
+        this.draw()
+        this.position.y += this.velocity.y
+    }
+}
+
+const randX = Math.floor(Math.random() * canvas.width)
 
 const player = new Player()
-// player.draw()
 
-// projectiles array fired projectiles
+const meteors = new Meteor()
+
+// projectiles array - fired projectiles
 const projectiles = []
     
 // variable for keys for movement handler
@@ -89,14 +120,22 @@ const keys = {
 function animate() {
     requestAnimationFrame(animate)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+    meteors.update()
     player.update()
-    projectiles.forEach(Projectile => {
-        Projectile.update()
+    projectiles.forEach((Projectile, index) => {
+        // function to remove old projectiles from array
+        if(Projectile.position.y + projectiles.radius <= 0) {
+            setTimeout(() => {
+                projectiles.splice(index, 1)
+            }, 0)     
+        } else {
+            Projectile.update()
+        }
     })
     // movement handler & left and right border stop
     if (keys.ArrowLeft.pressed && player.position.x >= 0) {
         player.velocity.x = -7
-    } else if (keys.ArrowRight.pressed && player.position.x + player.width <= 700) {
+    } else if (keys.ArrowRight.pressed && player.position.x + player.width <= 600) {
         player.velocity.x = 7
     } else {
         player.velocity.x = 0
@@ -105,7 +144,7 @@ function animate() {
 
 animate()
 
-// keydown event listener to START player movement
+// keydown event listener to START player movement & fire projectiles
 addEventListener('keydown', ({key}) => {
     switch(key) {
         case 'ArrowLeft':
@@ -120,12 +159,12 @@ addEventListener('keydown', ({key}) => {
             // console.log('space')
             projectiles.push(new Projectile({
                 position: {
-                    x: player.position.x + 20,
+                    x: player.position.x + 15,
                     y: player.position.y
                 },
                 velocity: {
                     x: 0,
-                    y: -8
+                    y: -9
                 }
             }))
             break 
@@ -148,22 +187,6 @@ addEventListener('keyup', ({key}) => {
             break 
     }
 })
-// class Spaceship {
-//     constructor(x, y, color, width, height) {
-//         this.x = x
-//         this.y = y
-//         this.color = color
-//         this.width = width
-//         this.height = height
-//         this.alive = true
-//     }
-
-//     render() {
-//         ctx.fillStyle = this.color
-//         ctx.fillRect(this.x, this.y, this.width, this.height)
-//     }
-// }
-
 
 // class Earth {
 //     constructor() {
@@ -180,14 +203,6 @@ addEventListener('keyup', ({key}) => {
 //         ctx.fillRect(this.x, this.y, this.width, this.height)
 //     }
 // }
-
-// const player = new Spaceship(140, 280, 'white', 15, 25)
-
-// const randX = Math.floor(Math.random() * canvas.width)
-
-// const meteor = new Spaceship(randX, 1, 'orange', 25, 25)
-
-// // const projectile = new Spaceship(player.x, player.y, 'red', 5, 5)
 
 // const earth = new Earth()
 
