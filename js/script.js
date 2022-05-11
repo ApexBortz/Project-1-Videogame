@@ -122,7 +122,9 @@ const keys = {
     }
 }
 
-let frames = 0
+function spawnMeteors(){}
+
+// let frames = 0
 
 // animate & update loop function for game functions
 function animate() {
@@ -131,7 +133,7 @@ function animate() {
     meteors.update()
     player.update()
     projectiles.forEach((Projectile, index) => {
-        // removing old projectiles from array after they leave screen
+        // removing old projectiles from array after they leave game screen
     if (Projectile.position.y + projectiles.radius <= 0) {
         setTimeout(() => {
             projectiles.splice(index, 1)
@@ -218,29 +220,10 @@ addEventListener('keyup', ({key}) => {
 
 // const earth = new Earth()
 
-// function animate() {
-//     projectiles.forEach((projectile) => {
-//         projectile.update()
-//     })
-// }
 
 // function drawBox(x, y, w, h, color) {
 //     ctx.fillStyle = color
 //     ctx.fillRect(x, y, w, h)
-// }
-
-
-// function movementHandler(e) {
-//     const speed = 15
-//     switch(e.key) {
-
-//       case('ArrowLeft'):
-//         player.x = player.x - speed
-//         break
-//       case('ArrowRight'):
-//         player.x = player.x + speed
-//         break
-//     }
 // }
 
 // function detectHit() {
@@ -263,20 +246,3 @@ addEventListener('keyup', ({key}) => {
     
 //     }
 // }
-
-
-// // all of the main game logic executed every frame
-// function gameLoop() {
-//     // clear the canvas
-//     ctx.clearRect(0, 0, canvas.width, canvas.height)
-//     meteor.y += 6
-//     detectHit()
-    
-//     if (player.alive) {
-//         meteor.render()
-//     }
-//     earth.render()
-//     player.render()
-// }
-
-// document.addEventListener('keydown', movementHandler)
