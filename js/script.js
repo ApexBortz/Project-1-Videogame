@@ -138,6 +138,13 @@ function animate() {
     // continue pushing new meteors into meteor array, spawning them
     meteors.forEach((meteor, index) => {
         meteor.update()
+        // collision detection for meteor hitting ship
+        if(meteor.position.y + meteor.height >= player.position.y &&
+            meteor.position.x + meteor.width >= player.position.x &&
+            meteor.position.x <= player.position.x + player.width) {
+            console.log('you lose!')
+        }
+        
         // projectile collision detection
         projectiles.forEach((projectile, indexP) => {
             if (projectile.position.y - projectile.radius <= 
@@ -151,18 +158,20 @@ function animate() {
                     // removes meteor & projectile from respective arrays 
                     // & removes from screen once hit
                 setTimeout(() => {
+                    // deeper collision detection for direct meteor & projectile contact
                     const meteorFound = meteors.find(meteor2 => {
                         return meteor2 === meteor
                     })
                     const projectileFound = projectiles.find(projectile2 => {
                         return projectile2 === projectile
                     })
-
+                    // if meteor & projectile found remove that specific meteor and that specific projectile
                     if (meteorFound && projectileFound) {
                     meteors.splice(index, 1)
                     projectiles.splice(indexP, 1)
                     }
                 }, 0 )
+                
             }
         })
     }) 
