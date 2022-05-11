@@ -102,9 +102,9 @@ class Meteor {
 // random x coordinate variable for meteor spawn position
 const randX = Math.floor(Math.random() * canvas.width)
 
-const player = new Player()
+const meteors = new Meteor()
 
-const meteors = new Meteor
+const player = new Player()
 
 // projectiles array - fired projectiles
 const projectiles = []
@@ -149,10 +149,9 @@ function animate() {
         player.velocity.x = 0
     }
 
-    if(frames % 1000 === 0){
-        meteors.draw()
-    }
-    frames++
+    // if(frames % 1000 === 0){
+    //     meteors.update()
+    // }
 }
 
 animate()
