@@ -73,7 +73,7 @@ class Meteor {
         }
 
         this.velocity = {
-            x: 1,
+            x: Math.random() * 2 - 1,
             y: 3
         }
 
@@ -95,20 +95,22 @@ class Meteor {
         // if statement to keep meteors on screen, changes the x velocity when hits the side
         if(this.position.x + this.width >= 600) {
             this.velocity.x = -this.velocity.x
+        } else if (this.position.x <= 0){
+            this.velocity.x = -this.velocity.x
         }
     }
 }
 
-// random x coordinate variable for meteor spawn position
-
-const meteors = []
-
+// player
 const player = new Player()
 
-// projectiles array - fired projectiles
+// meteors array
+const meteors = []
+
+// projectiles array
 const projectiles = []
     
-// variable for keys for movement handler
+// keys variable for movement handler
 const keys = {
     ArrowLeft: {
         pressed: false
@@ -121,20 +123,34 @@ const keys = {
     }
 }
 
-// function for meteors to continue spawning
+// function to continue spawning meteors at top of gamescreen
 function spawnMeteors(){
     meteors.push(new Meteor)
 }
 
 // interval at which the meteors spawn
-setInterval(spawnMeteors, 1750)
+setInterval(spawnMeteors, (Math.random() * 750) + 1000 )
 
 // animate & update loop function for game functions
 function animate() {
     requestAnimationFrame(animate)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    meteors.forEach(meteor => {
+    // continue pushing new meteors into meteor array, spawning them
+    meteors.forEach((meteor, index) => {
         meteor.update()
+        // projectile collision detection
+        projectiles.forEach((projectile, indexP) => {
+            if (projectile.position.y - projectile.radius <= meteor.position.y + meteor.height &&
+                projectile.position.x + projectile.radius >= meteor.position.x &&
+                projectile.position.x - projectile.radius >= meteor.position.x - meteor.width &&
+                projectile.position.x - projectile.radius <= meteor.position.x + meteor.width) {
+                    // removes meteor & projectile from respective arrays & removes from screen once hit
+                setTimeout(() => {
+                    meteors.splice(index, 1)
+                    projectiles.splice(indexP, 1)
+                }, 0 )
+            }
+        })
     }) 
     player.update()
     projectiles.forEach((Projectile, index) => {
@@ -227,23 +243,17 @@ addEventListener('keyup', ({key}) => {
 //     ctx.fillRect(x, y, w, h)
 // }
 
-// function detectHit() {
-//     // Axis Aligned Bounding Box (AABB) collision detection algorithm
-//     // const meteorLeft = player.x + player.width >= meteor.x
-//     // // // console.log('left', meteorLeft)
-//     // const meteorRight = player.x <= meteor.x + meteor.width
-//     // // // console.log('right', meteorRight)
-//     // const meteorTop = player.y + player.height >= meteor.y
-//     // const meteorBottom = player.y <= meteor.y + meteor.height
-//     // // console.log(meteorBottom)
+// function detectHit(projectile, meteor) {
+    
 //     if (
-//         player.x + player.width >= meteor.x &&
-//         player.x <= meteor.x + meteor.width &&
-//         player.y + player.height >= meteor.y &&
-//         player.y <= meteor.y + meteor.height
+//         projectile.x + projectile.width >= meteor.x &&
+//         projectile.x <= meteor.x + meteor.width &&
+//         projectile.y + projectile.height >= meteor.y &&
+//         projectile.y <= meteor.y + meteor.height
 //     ) {
 //         // console.log('hit')
-//         meteor.alive = false
+//         return true
     
 //     }
+//     return false
 // }
