@@ -140,18 +140,33 @@ function animate() {
         meteor.update()
         // projectile collision detection
         projectiles.forEach((projectile, indexP) => {
-            if (projectile.position.y - projectile.radius <= meteor.position.y + meteor.height &&
-                projectile.position.x + projectile.radius >= meteor.position.x &&
-                projectile.position.x - projectile.radius >= meteor.position.x - meteor.width &&
-                projectile.position.x - projectile.radius <= meteor.position.x + meteor.width) {
-                    // removes meteor & projectile from respective arrays & removes from screen once hit
+            if (projectile.position.y - projectile.radius <= 
+                meteor.position.y + meteor.height &&
+                projectile.position.x + projectile.radius >=
+                meteor.position.x &&
+                projectile.position.x - projectile.radius <=
+                meteor.position.x + meteor.width &&
+                projectile.position.y + projectile.radius >=
+                meteor.position.y) {
+                    // removes meteor & projectile from respective arrays 
+                    // & removes from screen once hit
                 setTimeout(() => {
+                    const meteorFound = meteors.find(meteor2 => {
+                        return meteor2 === meteor
+                    })
+                    const projectileFound = projectiles.find(projectile2 => {
+                        return projectile2 === projectile
+                    })
+
+                    if (meteorFound && projectileFound) {
                     meteors.splice(index, 1)
                     projectiles.splice(indexP, 1)
+                    }
                 }, 0 )
             }
         })
     }) 
+
     player.update()
     projectiles.forEach((Projectile, index) => {
         // removing old projectiles from array after they leave game screen
@@ -237,12 +252,6 @@ addEventListener('keyup', ({key}) => {
 
 // const earth = new Earth()
 
-
-// function drawBox(x, y, w, h, color) {
-//     ctx.fillStyle = color
-//     ctx.fillRect(x, y, w, h)
-// }
-
 // function detectHit(projectile, meteor) {
     
 //     if (
@@ -256,4 +265,5 @@ addEventListener('keyup', ({key}) => {
     
 //     }
 //     return false
-// }
+
+   
