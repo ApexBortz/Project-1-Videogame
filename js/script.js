@@ -2,8 +2,8 @@ const canvas = document.getElementById('canvas')
 
 const ctx = canvas.getContext('2d')
 
-// const gameLoopInterval = setInterval(gameLoop, 100)
 
+// gamescreen size
 canvas.height = 625;
 canvas.width = 600;
 
@@ -23,8 +23,8 @@ class Player {
         // const image = new Image()
         // image.src = "../imgs/spaceship.png"
 
-        this.width = 30
-        this.height = 50
+        this.width = 20
+        this.height = 40
     }
     draw() {
       ctx.fillStyle = 'white'
@@ -37,7 +37,7 @@ class Player {
     }
 }
 
-// projectile class for shooting
+// projectile class for when player fires
 class Projectile {
         constructor({position, velocity, color, width, height}){
             this.position = position
@@ -48,16 +48,15 @@ class Projectile {
             // this.height = 10
              
         }
-    
+        // projectile is a circle, this renders it
         draw() {
             ctx.beginPath()
             ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
             ctx.fillStyle = 'red'
             ctx.fill()
-            // ctx.fillRect(this.position.x, this.position.y, this.velocity.x, 
-            //     this.velocity.y, this.width, this.height)
             ctx.closePath()
         }
+        // update for projectile trajectory 
         update() {
             this.draw()
             this.position.x += this.velocity.x
@@ -65,20 +64,21 @@ class Projectile {
         }
 }
 
+// new class for the meteors 
 class Meteor {
     constructor() {
         this.position = {
-            x: randX,
+            x: randX - 10,
             y: 0
         }
 
         this.velocity = {
-            x: 0,
+            x: 1,
             y: 3
         }
 
         // const image = new Image()
-        // image.src = "../imgs/spaceship.png"
+        // image.src = 
 
         this.width = 55
         this.height = 55
@@ -91,14 +91,20 @@ class Meteor {
     update() {
         this.draw()
         this.position.y += this.velocity.y
+        this.position.x += this.velocity.x
+        // if statement to keep meteors on screen, changes the x velocity when hits the side
+        if(this.position.x + this.width >= 600) {
+            this.velocity.x = -this.velocity.x
+        }
     }
 }
 
+// random x coordinate variable for meteor spawn position
 const randX = Math.floor(Math.random() * canvas.width)
 
 const player = new Player()
 
-const meteors = new Meteor()
+const meteors = new Meteor
 
 // projectiles array - fired projectiles
 const projectiles = []
@@ -116,6 +122,8 @@ const keys = {
     }
 }
 
+let frames = 0
+
 // animate & update loop function for game functions
 function animate() {
     requestAnimationFrame(animate)
@@ -123,15 +131,15 @@ function animate() {
     meteors.update()
     player.update()
     projectiles.forEach((Projectile, index) => {
-        // function to remove old projectiles from array
-        if(Projectile.position.y + projectiles.radius <= 0) {
-            setTimeout(() => {
-                projectiles.splice(index, 1)
-            }, 0)     
-        } else {
+        // removing old projectiles from array after they leave screen
+    if (Projectile.position.y + projectiles.radius <= 0) {
+        setTimeout(() => {
+            projectiles.splice(index, 1)
+        }, 0)     
+    } else {
             Projectile.update()
-        }
-    })
+    }
+})
     // movement handler & left and right border stop
     if (keys.ArrowLeft.pressed && player.position.x >= 0) {
         player.velocity.x = -7
@@ -140,6 +148,11 @@ function animate() {
     } else {
         player.velocity.x = 0
     }
+
+    if(frames % 1000 === 0){
+        meteors.draw()
+    }
+    frames++
 }
 
 animate()
@@ -159,7 +172,7 @@ addEventListener('keydown', ({key}) => {
             // console.log('space')
             projectiles.push(new Projectile({
                 position: {
-                    x: player.position.x + 15,
+                    x: player.position.x + 10,
                     y: player.position.y
                 },
                 velocity: {
