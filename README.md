@@ -11,6 +11,8 @@ Hop in your lone space fighter and blast the incoming debree to save the planet!
 
 Orbital Defense is a top down 'runner' in which the player needs to stop all incoming objects from striking the Earth and destroying us all.
 
+Play Orbital Defense: https://apexbortz.github.io/Project-1-Videogame/
+
 MVP Goals
 - create game screen
 - render game screen displaying the canvas along with the 'earth' at the bottom
@@ -26,4 +28,4 @@ Stretch Goals
 - increase the frequency and speed of the meteors as more are destroyed
 - upgrade the space fighter's movement speed and/or weapons the more objects are destroyed
 
-![Wireframe](/imgs/wireframe.jpg)
+![Wireframe](./imgs/wireframe.jpg)

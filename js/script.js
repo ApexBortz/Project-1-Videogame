@@ -139,6 +139,7 @@ const meteors = []
 // projectiles array
 const projectiles = []
 
+// explosion particles array
 const particles = []
 
 // keys variable for movement handler
@@ -162,21 +163,36 @@ function spawnMeteors(){
 // interval at which the meteors spawn
 setInterval(spawnMeteors, (Math.random() * 750) + 1000 )
 
+function createParticles({object}) {
+    for (let i = 0; i < 15; i++) {
+        particles.push(new Particle({
+            position: {
+                x: object.position.x + object.width / 2,
+                y: object.position.y + object.height / 2
+            },
+            velocity: {
+                x: (Math.random() - 0.5) * 2,
+                y: (Math.random() - 0.5) * 2
+            },
+            radius: Math.random() * 5,
+        }))
+    }
+}
+
 // animate & update loop function for game functions
 function animate() {
     requestAnimationFrame(animate)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     player.update()
-
+    // fading the explosion particles opacity and removing them
     particles.forEach((particle, i) => {
-        if (particles.opacity <= 0) {
+        if (particle.opacity <= 0) {
             setTimeout(() => {
                 particles.splice(i, 1)
             },0 ) 
         } else {
             particle.update()
-        }
-        
+        }        
     })
     // continue pushing new meteors into meteor array, spawning them
     meteors.forEach((meteor, index) => {
@@ -185,7 +201,12 @@ function animate() {
         if(meteor.position.y + meteor.height >= player.position.y &&
             meteor.position.x + meteor.width >= player.position.x &&
             meteor.position.x <= player.position.x + player.width) {
-            console.log('you lose!')
+                setTimeout(() => {
+                    meteors.splice(index, 1)
+                })
+            createParticles({
+                object: player
+            })
         }
 
         // projectile collision detection
@@ -212,24 +233,13 @@ function animate() {
                     })
                     // if meteor & projectile found remove that specific meteor and that specific projectile
                     if (meteorFound && projectileFound) {
-                        for (let i = 0; i < 15; i++) {
-                            particles.push(new Particle({
-                                position: {
-                                    x: meteor.position.x + meteor.width / 2,
-                                    y: meteor.position.y + meteor.height / 2
-                                },
-                                velocity: {
-                                    x: (Math.random() - 0.5) * 2,
-                                    y: (Math.random() - 0.5) * 2
-                                },
-                                radius: Math.random() * 5,
-                            }))
-                        }
+                    createParticles({
+                        object: meteor
+                    })
                     meteors.splice(index, 1)
                     projectiles.splice(indexP, 1)
                     }
-                }, 0 )
-                
+                }, 0 )                
             }
         })
     }) 
