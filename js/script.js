@@ -64,6 +64,35 @@ class Projectile {
         }
 }
 
+class Particle {
+    constructor({position, velocity, radius}){
+        this.position = position
+        this.velocity = velocity
+        
+        this.radius = radius
+        this.opacity = 1
+         
+    }
+    // projectile is a circle, this renders it
+    draw() {
+        ctx.save()
+        ctx.globalAlpha = this.opacity
+        ctx.beginPath()
+        ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
+        ctx.fillStyle = 'goldenrod'
+        ctx.fill()
+        ctx.closePath()
+        ctx.restore()
+    }
+    // update for projectile trajectory 
+    update() {
+        this.draw()
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
+        this.opacity -= 0.01
+    }
+}
+
 // new class for the meteors 
 class Meteor {
     constructor() {
@@ -84,7 +113,7 @@ class Meteor {
         this.height = 55
     }
     draw() {
-      ctx.fillStyle = 'orange'
+      ctx.fillStyle = 'darkorange'
       ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
     //   ctx.drawImage(this.image, this.position.x, this.position.y)
     } 
@@ -109,7 +138,9 @@ const meteors = []
 
 // projectiles array
 const projectiles = []
-    
+
+const particles = []
+
 // keys variable for movement handler
 const keys = {
     ArrowLeft: {
@@ -135,6 +166,18 @@ setInterval(spawnMeteors, (Math.random() * 750) + 1000 )
 function animate() {
     requestAnimationFrame(animate)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+    player.update()
+
+    particles.forEach((particle, i) => {
+        if (particles.opacity <= 0) {
+            setTimeout(() => {
+                particles.splice(i, 1)
+            },0 ) 
+        } else {
+            particle.update()
+        }
+        
+    })
     // continue pushing new meteors into meteor array, spawning them
     meteors.forEach((meteor, index) => {
         meteor.update()
@@ -144,7 +187,7 @@ function animate() {
             meteor.position.x <= player.position.x + player.width) {
             console.log('you lose!')
         }
-        
+
         // projectile collision detection
         projectiles.forEach((projectile, indexP) => {
             if (projectile.position.y - projectile.radius <= 
@@ -155,6 +198,8 @@ function animate() {
                 meteor.position.x + meteor.width &&
                 projectile.position.y + projectile.radius >=
                 meteor.position.y) {
+
+                   
                     // removes meteor & projectile from respective arrays 
                     // & removes from screen once hit
                 setTimeout(() => {
@@ -167,6 +212,19 @@ function animate() {
                     })
                     // if meteor & projectile found remove that specific meteor and that specific projectile
                     if (meteorFound && projectileFound) {
+                        for (let i = 0; i < 15; i++) {
+                            particles.push(new Particle({
+                                position: {
+                                    x: meteor.position.x + meteor.width / 2,
+                                    y: meteor.position.y + meteor.height / 2
+                                },
+                                velocity: {
+                                    x: (Math.random() - 0.5) * 2,
+                                    y: (Math.random() - 0.5) * 2
+                                },
+                                radius: Math.random() * 5,
+                            }))
+                        }
                     meteors.splice(index, 1)
                     projectiles.splice(indexP, 1)
                     }
@@ -176,7 +234,6 @@ function animate() {
         })
     }) 
 
-    player.update()
     projectiles.forEach((Projectile, index) => {
         // removing old projectiles from array after they leave game screen
     if (Projectile.position.y + projectiles.radius <= 0) {
