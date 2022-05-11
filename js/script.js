@@ -68,7 +68,7 @@ class Projectile {
 class Meteor {
     constructor() {
         this.position = {
-            x: randX - 10,
+            x: Math.floor(Math.random() * canvas.width),
             y: 0
         }
 
@@ -100,9 +100,8 @@ class Meteor {
 }
 
 // random x coordinate variable for meteor spawn position
-const randX = Math.floor(Math.random() * canvas.width)
 
-const meteors = new Meteor()
+const meteors = []
 
 const player = new Player()
 
@@ -122,15 +121,21 @@ const keys = {
     }
 }
 
-function spawnMeteors(){}
+// function for meteors to continue spawning
+function spawnMeteors(){
+    meteors.push(new Meteor)
+}
 
-// let frames = 0
+// interval at which the meteors spawn
+setInterval(spawnMeteors, 1750)
 
 // animate & update loop function for game functions
 function animate() {
     requestAnimationFrame(animate)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    meteors.update()
+    meteors.forEach(meteor => {
+        meteor.update()
+    }) 
     player.update()
     projectiles.forEach((Projectile, index) => {
         // removing old projectiles from array after they leave game screen
@@ -150,10 +155,6 @@ function animate() {
     } else {
         player.velocity.x = 0
     }
-
-    // if(frames % 1000 === 0){
-    //     meteors.update()
-    // }
 }
 
 animate()
