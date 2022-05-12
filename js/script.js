@@ -167,7 +167,7 @@ function spawnMeteors(){
     meteors.push(new Meteor)
 }
 
-// interval at which the meteors spawn
+// interval at which the meteors spawn and continue spawning
 setInterval(spawnMeteors, (Math.random() * 750) + 1000 )
 
 // create particles function for animating explosions of meteors & ships
@@ -273,7 +273,7 @@ function animate() {
     }
 }
 
-animate()
+animate() 
 
 // keydown event listener to START player movement & fire projectiles
 addEventListener('keydown', ({key}) => {
