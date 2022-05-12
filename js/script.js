@@ -303,7 +303,7 @@ addEventListener('keydown', ({key}) => {
     }
 })
 
-// keyup event listener to STOP movement side to side
+// keyup event listener to STOP player movement side to side
 addEventListener('keyup', ({key}) => {
     switch(key) {
         case 'ArrowLeft':
