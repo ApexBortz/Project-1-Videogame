@@ -133,17 +133,20 @@ class Meteor {
 // new class for earth at bottom of gamescreen to defend
 class Earth {
     constructor() {
-        this.x = 0
-        this.y = 595
+        this.position = {
+            x: 0,
+            y: 595
+        }
+        
         this.color = 'green'
         this.width = 600
-        this.height = 600
+        this.height = 100
         // this.alive = true
     }
 
     draw() {
         ctx.fillStyle = this.color
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
     update() {
         this.draw()
@@ -184,7 +187,7 @@ let game = {
     active: false
 }
 
-let score =
+let score = 0
 
 // function to continue spawning meteors at top of gamescreen
 function spawnMeteors(){
@@ -211,6 +214,23 @@ function createParticles({object}) {
     }
 }
 
+// creat particle function but with larger & more particles for earth explosion
+function earthExplosion({object}) {
+    for (let i = 0; i < 50; i++) {
+        particles.push(new Particle({
+            position: {
+                x: object.position.x + object.width / 2,
+                y: object.position.y + object.height - 75
+            },
+            velocity: {
+                x: (Math.random() - 0.5) * 6,
+                y: (Math.random() - 0.5) * 6
+            },
+            radius: Math.random() * 15,
+        }))
+    }
+}
+
 // game functions animate
 function animate() {
     requestAnimationFrame(animate)
@@ -227,7 +247,7 @@ function animate() {
             particle.update()
         }        
     })
-    // continue pushing new meteors into meteor array, spawning them
+    // meteor update & removal with collision detection below
     meteors.forEach((meteor, index) => {
         meteor.update()
         // lose condition if meteor hits ship
@@ -242,8 +262,17 @@ function animate() {
                 }, 0 )
             createParticles({
                 object: player
+            }) // collision detection for meteors & earth
+        } else if (meteor.position.y + meteor.height >= earth.position.y) {
+            setTimeout (() => {
+                meteors.splice(index, 1)
+                player.opacity = 0
+                game.over = true
+            }, 0 ) // earth explosion particle animation
+            earthExplosion ({
+                object: earth
             })
-        } 
+        }
         // projectile & meteor collision detection
         projectiles.forEach((projectile, indexP) => {
             if (projectile.position.y - projectile.radius <= 
@@ -266,6 +295,8 @@ function animate() {
                     })
                     // if meteor & projectile found remove that specific meteor and that specific projectile
                     if (meteorFound && projectileFound) {
+                        score += 100
+                        scoreValue.innerText = score
                     createParticles({
                         object: meteor
                     })
@@ -273,10 +304,10 @@ function animate() {
                     projectiles.splice(indexP, 1)
                     }
                 }, 0 )                
-            }
+            } 
         })
     }) 
-
+    // tracking the projectiles fired
     projectiles.forEach((Projectile, index) => {
         // removing old projectiles from array after they leave game screen
     if (Projectile.position.y + projectiles.radius <= 0) {
