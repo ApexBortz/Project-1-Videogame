@@ -22,11 +22,12 @@ class Player {
 
         // const image = new Image()
         // image.src = "../imgs/spaceship.png"
-
+        this.opacity = 1
         this.width = 20
         this.height = 40
     }
     draw() {
+      ctx.globalAlpha = this.opacity
       ctx.fillStyle = 'white'
       ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
     //   ctx.drawImage(this.image, this.position.x, this.position.y)
@@ -103,7 +104,7 @@ class Meteor {
 
         this.velocity = {
             x: Math.random() * 2 - 1,
-            y: 3
+            y: 4.5
         }
 
         // const image = new Image()
@@ -155,6 +156,11 @@ const keys = {
     }
 }
 
+let game = {
+    over: false,
+    active: false
+}
+
 // function to continue spawning meteors at top of gamescreen
 function spawnMeteors(){
     meteors.push(new Meteor)
@@ -203,7 +209,9 @@ function animate() {
             meteor.position.x <= player.position.x + player.width) {
                 setTimeout(() => {
                     meteors.splice(index, 1)
-                })
+                    player.opacity = 0
+                    game.over = true 
+                }, 0 )
             createParticles({
                 object: player
             })
