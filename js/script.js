@@ -2,7 +2,6 @@ const canvas = document.getElementById('canvas')
 
 const ctx = canvas.getContext('2d')
 
-
 // gamescreen size
 canvas.height = 625;
 canvas.width = 600;
@@ -65,6 +64,7 @@ class Projectile {
         }
 }
 
+// particle class for explosion animation
 class Particle {
     constructor({position, velocity, radius}){
         this.position = position
@@ -156,6 +156,7 @@ const keys = {
     }
 }
 
+// game over variable
 let game = {
     over: false,
     active: false
@@ -169,6 +170,7 @@ function spawnMeteors(){
 // interval at which the meteors spawn
 setInterval(spawnMeteors, (Math.random() * 750) + 1000 )
 
+// create particles function for animating explosions of meteors & ships
 function createParticles({object}) {
     for (let i = 0; i < 15; i++) {
         particles.push(new Particle({
@@ -185,7 +187,7 @@ function createParticles({object}) {
     }
 }
 
-// animate & update loop function for game functions
+// game functions animate
 function animate() {
     requestAnimationFrame(animate)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -203,11 +205,12 @@ function animate() {
     // continue pushing new meteors into meteor array, spawning them
     meteors.forEach((meteor, index) => {
         meteor.update()
-        // collision detection for meteor hitting ship
-        if(meteor.position.y + meteor.height >= player.position.y &&
+        // lose condition if meteor hits ship
+        if (meteor.position.y + meteor.height >= player.position.y &&
             meteor.position.x + meteor.width >= player.position.x &&
             meteor.position.x <= player.position.x + player.width) {
                 setTimeout(() => {
+                    // ship explosion & game over
                     meteors.splice(index, 1)
                     player.opacity = 0
                     game.over = true 
@@ -217,7 +220,7 @@ function animate() {
             })
         }
 
-        // projectile collision detection
+        // projectile & meteor collision detection
         projectiles.forEach((projectile, indexP) => {
             if (projectile.position.y - projectile.radius <= 
                 meteor.position.y + meteor.height &&
@@ -227,12 +230,10 @@ function animate() {
                 meteor.position.x + meteor.width &&
                 projectile.position.y + projectile.radius >=
                 meteor.position.y) {
-
-                   
                     // removes meteor & projectile from respective arrays 
                     // & removes from screen once hit
                 setTimeout(() => {
-                    // deeper collision detection for direct meteor & projectile contact
+                    // deeper collision detection for specific meteor & specific projectile contact
                     const meteorFound = meteors.find(meteor2 => {
                         return meteor2 === meteor
                     })
@@ -276,6 +277,7 @@ animate()
 
 // keydown event listener to START player movement & fire projectiles
 addEventListener('keydown', ({key}) => {
+    if (game.over) return
     switch(key) {
         case 'ArrowLeft':
             // console.log('left')      
@@ -335,19 +337,3 @@ addEventListener('keyup', ({key}) => {
 // }
 
 // const earth = new Earth()
-
-// function detectHit(projectile, meteor) {
-    
-//     if (
-//         projectile.x + projectile.width >= meteor.x &&
-//         projectile.x <= meteor.x + meteor.width &&
-//         projectile.y + projectile.height >= meteor.y &&
-//         projectile.y <= meteor.y + meteor.height
-//     ) {
-//         // console.log('hit')
-//         return true
-    
-//     }
-//     return false
-
-   

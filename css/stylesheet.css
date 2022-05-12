@@ -1,3 +1,4 @@
+
 canvas {
     background-image: url(../imgs/space-pixels.jpg);
     /* background-repeat: repeat; */ 
@@ -9,12 +10,14 @@ canvas {
 h2 {
     text-align: center;
     color: chartreuse;
+    font-family: 'Wallpoet', cursive;
+    font-size: 2rem; 
     
 }
 
 #container {
     width: 600px;
-    height: 700px;
+    height: 750px;
     background-color: darkmagenta;
     margin: 0 auto;
     padding: 1em;
