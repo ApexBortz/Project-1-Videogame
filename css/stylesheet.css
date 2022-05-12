@@ -14,6 +14,8 @@ button {
     font-family: 'Wallpoet', cursive;
     font-size: 3rem;
     margin-bottom: 20px;
+    border-radius: 10px;
+    cursor: crosshair;
     
 }
 

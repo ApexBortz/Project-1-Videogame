@@ -159,7 +159,7 @@ class Earth {
 const player = new Player()
 
 // meteors array
-const meteors = []
+let meteors = []
 
 // projectiles array
 const projectiles = []
@@ -330,7 +330,27 @@ function animate() {
     }
 }
 
-document.getElementById('start').addEventListener('click', animate) 
+// event listener to begin game once you click the "ORBITAL DEFENSE" start button
+document.getElementById('start').addEventListener('click', () => {
+    meteors = []
+    animate()
+}) 
+
+// event listener to ensure button only gets clicked once
+document.getElementById('start').onclick = function () {
+    this.disabled = true;
+}
+
+let toggleVisual = false;
+// function to make start button unclickable after first click & game start
+let hideVisual = function() {
+  let visual = document.getElementsById('start');
+
+  if (toggleVisual = false) {
+    visual.disabled = true;
+    toggleVisual = true;
+  }
+}
 
 // keydown event listener to START player movement & fire projectiles
 addEventListener('keydown', ({key}) => {
