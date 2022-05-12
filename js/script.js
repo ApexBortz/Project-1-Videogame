@@ -172,15 +172,15 @@ setInterval(spawnMeteors, (Math.random() * 750) + 1000 )
 
 // create particles function for animating explosions of meteors & ships
 function createParticles({object}) {
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 20; i++) {
         particles.push(new Particle({
             position: {
                 x: object.position.x + object.width / 2,
                 y: object.position.y + object.height / 2
             },
             velocity: {
-                x: (Math.random() - 0.5) * 2,
-                y: (Math.random() - 0.5) * 2
+                x: (Math.random() - 0.5) * 3,
+                y: (Math.random() - 0.5) * 3
             },
             radius: Math.random() * 5,
         }))
@@ -210,7 +210,7 @@ function animate() {
             meteor.position.x + meteor.width >= player.position.x &&
             meteor.position.x <= player.position.x + player.width) {
                 setTimeout(() => {
-                    // ship explosion & game over
+                    // ship explosion, removing ship and meteor from screen & game over
                     meteors.splice(index, 1)
                     player.opacity = 0
                     game.over = true 

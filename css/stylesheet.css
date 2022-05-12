@@ -11,7 +11,7 @@ h2 {
     text-align: center;
     color: chartreuse;
     font-family: 'Wallpoet', cursive;
-    font-size: 2rem; 
+    font-size: 3rem; 
     
 }
 
@@ -21,4 +21,10 @@ h2 {
     background-color: darkmagenta;
     margin: 0 auto;
     padding: 1em;
+    border-radius: 15px;
+}
+
+body {
+    background-image: url(../imgs/planet-pixels.jpg);
+    background-size: 100%;
 }
