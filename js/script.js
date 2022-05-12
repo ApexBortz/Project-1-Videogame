@@ -2,6 +2,7 @@ const canvas = document.getElementById('canvas')
 
 const ctx = canvas.getContext('2d')
 
+const scoreValue = document.getElementById('scoreValue')
 // gamescreen size
 canvas.height = 625;
 canvas.width = 600;
@@ -42,10 +43,8 @@ class Projectile {
         constructor({position, velocity, color, width, height}){
             this.position = position
             this.velocity = velocity
-            
+            // projectile radius for circle render
             this.radius = 4
-            // this.width = 5
-            // this.height = 10
              
         }
         // projectile is a circle, this renders it
@@ -74,7 +73,7 @@ class Particle {
         this.opacity = 1
          
     }
-    // projectile is a circle, this renders it
+
     draw() {
         ctx.save()
         ctx.globalAlpha = this.opacity
@@ -99,19 +98,19 @@ class Meteor {
     constructor() {
         this.position = {
             x: Math.floor(Math.random() * canvas.width),
-            y: 0
+            y: 0 - 50
         }
 
         this.velocity = {
             x: Math.random() * 2 - 1,
-            y: 4.5
+            y: 4.2
         }
 
         // const image = new Image()
         // image.src = 
 
-        this.width = 55
-        this.height = 55
+        this.width = 50
+        this.height = 50
     }
     draw() {
       ctx.fillStyle = 'darkorange'
@@ -131,6 +130,26 @@ class Meteor {
     }
 }
 
+// new class for earth at bottom of gamescreen to defend
+class Earth {
+    constructor() {
+        this.x = 0
+        this.y = 595
+        this.color = 'green'
+        this.width = 600
+        this.height = 600
+        // this.alive = true
+    }
+
+    draw() {
+        ctx.fillStyle = this.color
+        ctx.fillRect(this.x, this.y, this.width, this.height)
+    }
+    update() {
+        this.draw()
+    }
+}
+
 // player
 const player = new Player()
 
@@ -142,6 +161,9 @@ const projectiles = []
 
 // explosion particles array
 const particles = []
+
+// earth
+const earth = new Earth()
 
 // keys variable for movement handler
 const keys = {
@@ -162,12 +184,14 @@ let game = {
     active: false
 }
 
+let score =
+
 // function to continue spawning meteors at top of gamescreen
 function spawnMeteors(){
     meteors.push(new Meteor)
 }
 
-// interval at which the meteors spawn and continue spawning
+// interval at which the meteors spawn
 setInterval(spawnMeteors, (Math.random() * 750) + 1000 )
 
 // create particles function for animating explosions of meteors & ships
@@ -192,6 +216,7 @@ function animate() {
     requestAnimationFrame(animate)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     player.update()
+    earth.update()
     // fading the explosion particles opacity and removing them
     particles.forEach((particle, i) => {
         if (particle.opacity <= 0) {
@@ -218,8 +243,7 @@ function animate() {
             createParticles({
                 object: player
             })
-        }
-
+        } 
         // projectile & meteor collision detection
         projectiles.forEach((projectile, indexP) => {
             if (projectile.position.y - projectile.radius <= 
@@ -319,21 +343,3 @@ addEventListener('keyup', ({key}) => {
             break 
     }
 })
-
-// class Earth {
-//     constructor() {
-//         this.x = 0
-//         this.y = 330
-//         this.color = 'green'
-//         this.width = 300
-//         this.height = 30
-//         this.alive = true
-//     }
-
-//     render() {
-//         ctx.fillStyle = this.color
-//         ctx.fillRect(this.x, this.y, this.width, this.height)
-//     }
-// }
-
-// const earth = new Earth()

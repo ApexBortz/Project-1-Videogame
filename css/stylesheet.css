@@ -17,7 +17,7 @@ h2 {
 
 #container {
     width: 600px;
-    height: 750px;
+    height: 775px;
     background-color: darkmagenta;
     margin: 0 auto;
     padding: 1em;
@@ -27,4 +27,13 @@ h2 {
 body {
     background-image: url(../imgs/planet-pixels.jpg);
     background-size: 100%;
+}
+
+p {
+    text-align: center;
+    color: white;
+    font-family: 'Audiowide', cursive;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
 }
