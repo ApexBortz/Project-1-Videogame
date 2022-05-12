@@ -22,6 +22,8 @@ class Player {
 
         // const image = new Image()
         // image.src = "../imgs/spaceship.png"
+       
+        // this.image = image
         this.opacity = 1
         this.width = 20
         this.height = 40
@@ -237,7 +239,7 @@ function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     player.update()
     earth.update()
-    // fading the explosion particles opacity and removing them
+    // fading the explosion particle opacity and removing them once theyve faded
     particles.forEach((particle, i) => {
         if (particle.opacity <= 0) {
             setTimeout(() => {
@@ -328,7 +330,7 @@ function animate() {
     }
 }
 
-animate() 
+document.getElementById('start').addEventListener('click', animate) 
 
 // keydown event listener to START player movement & fire projectiles
 addEventListener('keydown', ({key}) => {

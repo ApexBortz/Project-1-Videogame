@@ -1,31 +1,33 @@
 # Project-1-Videogame
-Nicholas Bortz Project 1 Game
+Nicholas Bortz Project 1 Videogame
 
-Welcome to Orbital Defense!
+*** WELCOME TO ORBITAL DEFENSE! ***
 
 The Earth is in danger and you are the only one who can save it!
 
-A massive unknown object has barrelled into the moon, causing all manner of debree to get caught in the Earth's gravitational pull and come crashing down towards the planet!
+A massive unknown object has barrelled into the moon, causing all manner of red hot debree to get caught in the Earth's gravitational pull. The pieces of debree have begun plumetting towards the Earth, threatening all life on its surface, as well as the structural integrity of the planet itself!
 
-Hop in your lone space fighter and blast the incoming debree to save the planet!
+Most of Earth's defensive fleet was stationed at the Earth Federation Lunar Defense Base, which was completely annhialated by the impact! You are our only hope! Hop in your lone space fighter and blast the incoming debree to save the planet!
 
-Orbital Defense is a top down 'runner' in which the player needs to stop all incoming objects from striking the Earth and destroying us all.
+Orbital Defense is a retro-style top down shooter, where you must prevent the giant meteors from destroying both you, and the earth!
 
-Play Orbital Defense: https://apexbortz.github.io/Project-1-Videogame/
+* INSTRUCTIONS *
 
-MVP Goals
-- create game screen
-- render game screen displaying the canvas along with the 'earth' at the bottom
-- render space fighter that can move left & right along the bottom of screen just above the 'earth' or defeat line
-- render random meteors and make them "fall" towards earth
-- write function for making the space fighter 'shoot'
-- write collision detection for the space fighter's 'bullet' to destroy incoming meteors & remove them from the canvas
-- write collision detection for if meteor gets past ship & collides with earth
-ending game & displaying GAME OVER!
+You are the Earth's last line of defense
 
-Stretch Goals
-- Make a score counter
-- increase the frequency and speed of the meteors as more are destroyed
-- upgrade the space fighter's movement speed and/or weapons the more objects are destroyed
+To START game, click the title button labeled "ORBITAL DEFENSE"
+
+- Control your ship using the LEFT and RIGHT arrow keys
+
+- Fire projectiles at incoming meteors with the SPACE bar
+
+- You MUST destroy every single meteor plummeting towards the Earth, even a single collision with the planet spells doom for humanity due to the sheer mass of the objects that are on a collision course with earth, so shoot away!
+
+- Unfortunately, your space fighter is NOT impregnable, if you are hit by any of the incoming debree your ship will be destroyed, so try to destroy the incoming objects before they reach you, or the planet!
+
+Play Orbital Defense here!: 
+
+https://apexbortz.github.io/Project-1-Videogame/
+
 
 ![Wireframe](./imgs/wireframe.jpg)

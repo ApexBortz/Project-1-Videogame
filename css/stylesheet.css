@@ -7,18 +7,26 @@ canvas {
     height: 625px;
 }
 
-h2 {
+button {
     text-align: center;
     color: chartreuse;
+    background-color: darkmagenta;
     font-family: 'Wallpoet', cursive;
-    font-size: 3rem; 
+    font-size: 3rem;
+    margin-bottom: 20px;
     
+}
+
+.start-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #container {
     width: 600px;
-    height: 775px;
-    background-color: darkmagenta;
+    height: 725px;
+    background-color: darkorchid;
     margin: 0 auto;
     padding: 1em;
     border-radius: 15px;
