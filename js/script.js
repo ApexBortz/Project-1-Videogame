@@ -170,6 +170,9 @@ const particles = []
 // earth
 const earth = new Earth()
 
+// start sound
+const startSound = new Audio('./audio/start_sound.wav')
+
 // meteors destroyed audio
 const meteorExplosion = new Audio('./audio/meteor_explosion.wav')
 
@@ -348,6 +351,7 @@ function animate() {
 
 // event listener to begin game once you click the "ORBITAL DEFENSE" start button
 document.getElementById('start').addEventListener('click', () => {
+    startSound.play()
     meteors = []
     animate()
 }) 
