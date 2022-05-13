@@ -46,3 +46,5 @@ Strecth Goals
 - Add score counter
 - Sound Effects
 - Upload sprites for ship & meteors & earth
+
+Special Thanks to Chris Courses & his tutorials
