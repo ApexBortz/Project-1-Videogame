@@ -173,6 +173,9 @@ const earth = new Earth()
 // start sound
 const startSound = new Audio('./audio/start_sound.wav')
 
+// level music
+const levelMusic = new Audio('./audio/level_music.wav')
+
 // meteors destroyed audio
 const meteorExplosion = new Audio('./audio/meteor_explosion.wav')
 
@@ -252,6 +255,7 @@ function earthExplosion({object}) {
 
 // game functions animate
 function animate() {
+    levelMusic.play()
     requestAnimationFrame(animate)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     player.update()
