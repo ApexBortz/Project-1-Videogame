@@ -176,6 +176,9 @@ const meteorExplosion = new Audio('./audio/meteor_explosion.wav')
 // firing projectiles audio
 const projectileSound = new Audio('./audio/fire_projectile.wav')
 
+// ship explosion audio
+const shipDestroyed = new Audio('./audio/ship_explosion.wav')
+
 // earth explosion audio
 const earthDestroyed = new Audio('./audio/earth_explosion.wav')
 
@@ -267,6 +270,7 @@ function animate() {
         if (meteor.position.y + meteor.height >= player.position.y &&
             meteor.position.x + meteor.width >= player.position.x &&
             meteor.position.x <= player.position.x + player.width) {
+                shipDestroyed.play()
                 setTimeout(() => {
                     // ship explosion, removing ship and meteor from screen & game over
                     meteors.splice(index, 1)
