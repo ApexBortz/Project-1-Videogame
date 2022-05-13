@@ -7,7 +7,7 @@ The Earth is in danger and you are the only one who can save it!
 
 A massive unknown object has barrelled into the moon, causing all manner of red hot debree to get caught in the Earth's gravitational pull. The pieces of debree have begun plumetting towards the Earth, threatening all life on its surface, as well as the structural integrity of the planet itself!
 
-Most of Earth's defensive fleet was stationed at the Earth Federation Lunar Defense Base, which was completely annhialated by the impact! You are our only hope! Hop in your lone space fighter and blast the incoming debree to save the planet!
+Most of Earth's defensive fleet was stationed at the Earth Federation Lunar Defense Base, which was completely annhialated by the initial impact! You are our only hope! Hop in your lone space fighter and blast the incoming debree to save the planet!
 
 Orbital Defense is a retro-style top down shooter, where you must prevent the giant meteors from destroying both you, and the earth!
 
@@ -32,6 +32,12 @@ https://apexbortz.github.io/Project-1-Videogame/
 
 ![Wireframe](./imgs/wireframe.jpg)
 
+Tech used:
+
+- HTML5 Canvas
+- CSS 
+- JavaScript Object Oriented Programming
+
 Project Goals
 
 MVP
@@ -48,4 +54,4 @@ Strecth Goals
 - Upload sprites for ship & meteors & earth
 
 Special Thanks to Chris Courses, JFiddle, and Stack Overflow tutorials
-for the help in programming this game.
+for the helping me in programming this game.
