@@ -170,6 +170,15 @@ const particles = []
 // earth
 const earth = new Earth()
 
+// meteors destroyed audio
+const meteorExplosion = new Audio('./audio/meteor_explosion.wav')
+
+// firing projectiles audio
+const projectileSound = new Audio('./audio/fire_projectile.wav')
+
+// earth explosion audio
+const earthDestroyed = new Audio('./audio/earth_explosion.wav')
+
 // keys variable for movement handler
 const keys = {
     ArrowLeft: {
@@ -189,6 +198,7 @@ let game = {
     active: false
 }
 
+// initial score variable
 let score = 0
 
 // function to continue spawning meteors at top of gamescreen
@@ -218,6 +228,7 @@ function createParticles({object}) {
 
 // creat particle function but with larger & more particles for earth explosion
 function earthExplosion({object}) {
+    earthDestroyed.play()
     for (let i = 0; i < 50; i++) {
         particles.push(new Particle({
             position: {
@@ -297,6 +308,7 @@ function animate() {
                     })
                     // if meteor & projectile found remove that specific meteor and that specific projectile
                     if (meteorFound && projectileFound) {
+                        meteorExplosion.play()
                         score += 100
                         scoreValue.innerText = score
                     createParticles({
@@ -366,6 +378,7 @@ addEventListener('keydown', ({key}) => {
             break
         case ' ':
             // console.log('space')
+            projectileSound.play()
             projectiles.push(new Projectile({
                 position: {
                     x: player.position.x + 10,
