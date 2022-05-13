@@ -2,7 +2,9 @@ const canvas = document.getElementById('canvas')
 
 const ctx = canvas.getContext('2d')
 
+// score tracker
 const scoreValue = document.getElementById('scoreValue')
+
 // gamescreen size
 canvas.height = 625;
 canvas.width = 600;
@@ -108,16 +110,13 @@ class Meteor {
             y: 4.2
         }
 
-        // const image = new Image()
-        // image.src = 
-
         this.width = 50
         this.height = 50
     }
     draw() {
       ctx.fillStyle = 'darkorange'
       ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
-    //   ctx.drawImage(this.image, this.position.x, this.position.y)
+   
     } 
     update() {
         this.draw()
@@ -207,7 +206,7 @@ let game = {
     active: false
 }
 
-// initial score variable
+// initial score
 let score = 0
 
 // function to continue spawning meteors at top of gamescreen
@@ -317,9 +316,10 @@ function animate() {
                     const projectileFound = projectiles.find(projectile2 => {
                         return projectile2 === projectile
                     })
-                    // if meteor & projectile found remove that specific meteor and that specific projectile
+                    // if target meteor & target projectile found, removes them & creates explosion effect 
                     if (meteorFound && projectileFound) {
                         meteorExplosion.play()
+                        // adds 100 points for each meteor destroyed
                         score += 100
                         scoreValue.innerText = score
                     createParticles({
@@ -334,7 +334,7 @@ function animate() {
     }) 
     // tracking the projectiles fired
     projectiles.forEach((Projectile, index) => {
-        // removing old projectiles from array after they leave game screen
+        // removing old projectiles from array after they leave game screen for missed shots
     if (Projectile.position.y + projectiles.radius <= 0) {
         setTimeout(() => {
             projectiles.splice(index, 1)
@@ -380,17 +380,15 @@ let hideVisual = function() {
 addEventListener('keydown', ({key}) => {
     if (game.over) return
     switch(key) {
-        case 'ArrowLeft':
-            // console.log('left')      
+        case 'ArrowLeft':     
             keys.ArrowLeft.pressed = true
             break
         case 'ArrowRight':
-            // console.log('right')
             keys.ArrowRight.pressed = true
             break
         case ' ':
-            // console.log('space')
             projectileSound.play()
+            // pushes new projectile into array when fired
             projectiles.push(new Projectile({
                 position: {
                     x: player.position.x + 10,
@@ -408,16 +406,13 @@ addEventListener('keydown', ({key}) => {
 // keyup event listener to STOP player movement side to side
 addEventListener('keyup', ({key}) => {
     switch(key) {
-        case 'ArrowLeft':
-            // console.log('left')      
+        case 'ArrowLeft':     
             keys.ArrowLeft.pressed = false
             break
         case 'ArrowRight':
-            // console.log('right')
             keys.ArrowRight.pressed = false
             break
         case ' ':
-            // console.log('space')
             break 
     }
 })
