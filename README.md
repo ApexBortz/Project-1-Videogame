@@ -47,4 +47,5 @@ Strecth Goals
 - Sound Effects
 - Upload sprites for ship & meteors & earth
 
-Special Thanks to Chris Courses & his tutorials
+Special Thanks to Chris Courses, JFiddle, and Stack Overflow tutorials
+for the help in programming this game.
