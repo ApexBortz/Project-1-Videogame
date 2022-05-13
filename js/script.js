@@ -88,7 +88,7 @@ class Particle {
         ctx.closePath()
         ctx.restore()
     }
-    // update for projectile trajectory 
+    // update for particle trajectory & fade
     update() {
         this.draw()
         this.position.x += this.velocity.x
