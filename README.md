@@ -31,3 +31,18 @@ https://apexbortz.github.io/Project-1-Videogame/
 
 
 ![Wireframe](./imgs/wireframe.jpg)
+
+Project Goals
+
+MVP
+- Render game screen with stars & moving player
+- Render randomly spawning meteors for player to destroy
+- Make player able to fire projectiles
+- Render earth below player to defend
+- Write collision detection for meteors, projectiles, earth, & ship
+
+Strecth Goals
+- Add explosions effects
+- Add score counter
+- Sound Effects
+- Upload sprites for ship & meteors & earth
