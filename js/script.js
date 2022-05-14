@@ -155,19 +155,19 @@ class Earth {
 }
 
 // player
-const player = new Player()
+let player = new Player()
 
 // meteors array
 let meteors = []
 
 // projectiles array
-const projectiles = []
+let projectiles = []
 
 // explosion particles array
-const particles = []
+let particles = []
 
 // earth
-const earth = new Earth()
+let earth = new Earth()
 
 // start sound
 const startSound = new Audio('./audio/start_sound.wav')
@@ -208,6 +208,18 @@ let game = {
 
 // initial score
 let score = 0
+
+// initialize game function
+function init() {
+    startSound.play()
+    player = new Player()
+    meteors = []
+    projectiles = []
+    particles = []
+    earth = new Earth()
+    score = 0
+    animate()
+}
 
 // function to continue spawning meteors at top of gamescreen
 function spawnMeteors(){
@@ -281,7 +293,7 @@ function animate() {
                     // ship explosion, removing ship and meteor from screen & game over
                     meteors.splice(index, 1)
                     player.opacity = 0
-                    game.over = true 
+                    game.over = true
                 }, 0 )
             createParticles({
                 object: player
@@ -355,14 +367,13 @@ function animate() {
 
 // event listener to begin game once you click the "ORBITAL DEFENSE" start button
 document.getElementById('start').addEventListener('click', () => {
-    startSound.play()
-    meteors = []
-    animate()
-}) 
+    init()
+})
 
 // event listener to ensure button only gets clicked once
 document.getElementById('start').onclick = function () {
     this.disabled = true;
+    
 }
 
 let toggleVisual = false;

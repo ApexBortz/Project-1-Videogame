@@ -34,7 +34,7 @@ button {
 
 body {
     background-image: url(../imgs/planet-pixels.jpg);
-    background-size: 100%;
+    background-size: 120%;
 }
 
 p {
@@ -42,6 +42,6 @@ p {
     color: white;
     font-family: 'Audiowide', cursive;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     margin-top: 0;
 }
