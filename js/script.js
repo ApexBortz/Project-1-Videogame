@@ -362,6 +362,7 @@ document.getElementById('start').addEventListener('click', () => {
 // event listener for restart button to reinitialize game functions
 document.getElementById('restart').addEventListener('click', () => {
     score = 0
+    scoreValue.innerText = score
     game.over = false
     startSound.play()
     meteors = []
