@@ -5,9 +5,9 @@ canvas {
     height: 625px;
 }
 
-button {
+.start-button {
     text-align: center;
-    color: chartreuse;
+    color: lawngreen;
     background-color: darkmagenta;
     font-family: 'Wallpoet', cursive;
     font-size: 3rem;
@@ -17,7 +17,7 @@ button {
     
 }
 
-.start-button {
+.title-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,11 +37,26 @@ body {
     background-size: 120%;
 }
 
+h4 {
+    color: cyan;
+    font-family: 'Audiowide', cursive;
+    margin-top: 0;
+}
+
 p {
     text-align: center;
     color: white;
     font-family: 'Audiowide', cursive;
     justify-content: center;
-    /* align-items: center; */
+    line-height: 0.5;
+}
+
+button {
+    color: cyan;
+    font-family: 'VT323', monospace;
+    float: right;
     margin-top: 0;
+    background-color: darkmagenta;
+    border-radius: 5px;
+    font-size: 20px;
 }
