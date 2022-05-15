@@ -209,16 +209,6 @@ let game = {
 // initial score
 let score = 0
 
-// initialize game function
-function init() {
-    startSound.play()
-    meteors = []
-    projectiles = []
-    particles = []
-    
-    score = 0
-}
-
 // function to continue spawning meteors at top of gamescreen
 function spawnMeteors(){
     meteors.push(new Meteor)
@@ -363,7 +353,7 @@ function animate() {
     }
 }
 
-// event listener to begin game once you click the "ORBITAL DEFENSE" start button
+// event listener to start game once you click the "ORBITAL DEFENSE" start button
 document.getElementById('start').addEventListener('click', () => {
     meteors = []
     animate()
@@ -371,7 +361,14 @@ document.getElementById('start').addEventListener('click', () => {
 
 // event listener for restart button to reinitialize game functions
 document.getElementById('restart').addEventListener('click', () => {
-    init()
+    score = 0
+    game.over = false
+    startSound.play()
+    meteors = []
+    projectiles = []
+    particles = []
+    player = new Player()
+    earth = new Earth()
 })
 
 // event listener to ensure start button only gets clicked once
