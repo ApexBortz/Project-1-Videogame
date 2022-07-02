@@ -107,7 +107,7 @@ class Meteor {
 
         this.velocity = {
             x: Math.random() * 2 - 1,
-            y: 3.5
+            y: 2.5
         }
 
         this.width = 50
